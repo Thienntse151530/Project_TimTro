@@ -8,32 +8,36 @@ GO
 CREATE TABLE User
 (
     Id_User         INT             NOT NULL    IDENTITY(1,1)   PRIMARY KEY,
-    FullName        NVARCHAR(100),
-    Student_Code    VARCHAR(50),
-    Identification  VARCHAR(15),
-    Account         VARCHAR(150),
-    [Password]      NVARCHAR(50)
+    FullName        NVARCHAR(100)   NOT NULL,
+    Student_Code    VARCHAR(50)     NOT NULL,
+    Identification  VARCHAR(15)     NOT NULL,
+    Account         VARCHAR(150)    NOT NULL,
+    [Password]      NVARCHAR(50)    NOT NULL
 )
 
 CREATE TABLE NhaTro 
 (
     Id_NhaTro       INT             NOT NULL    IDENTITY(1,1)   PRIMARY KEY,
-    Name_NhaTro     NVARCHAR(100),
-    Address_NhaTro  NVARCHAR(200),
-    Manager_NhaTro  NVARCHAR(100),
-    Total_TypeRoom  INT,
-    Total_Room      INT
+    Name_NhaTro     NVARCHAR(100)   NOT NULL,
+    Address_NhaTro  NVARCHAR(200)   NOT NULL,
+    Manager_NhaTro  NVARCHAR(100)   NOT NULL,
+    Total_TypeRoom  INT             NOT NULL,
+    Total_Room      INT             NOT NULL
 )
 CREATE TABLE TypeRoom 
 (
     Id_TypeRoom     INT             NOT NULL    IDENTITY(1,1)   PRIMARY KEY,
-    Name_TypeRoom   NVARCHAR(100),
-    Capacity_Room   INT,
-    Price           INT  
+    Id_NhaTro       INT             NOT NULL,
+    Name_TypeRoom   NVARCHAR(100)   NOT NULL,
+    Capacity_Room   INT             NOT NULL,
+    Price           INT             NOT NULL,
+    FOREIGN KEY (Id_NhaTro) REFERENCES NhaTro(Id_NhaTro)
 )
 CREATE TABLE Room 
 (
     Id_Room         INT             NOT NULL    IDENTITY(1,1)   PRIMARY KEY,
-    Name_Room       NVARCHAR(100),
-    [Status]        INT
+    Id_TypeRoom     INT             NOT NULL,
+    Name_Room       NVARCHAR(100)   NOT NULL,
+    [Status]        INT             NOT NULL,
+    FOREIGN KEY (Id_TypeRoom) REFERENCES TypeRoom(Id_TypeRoom)
 )
